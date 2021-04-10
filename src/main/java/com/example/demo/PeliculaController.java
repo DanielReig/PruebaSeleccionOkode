@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RestController
 public class PeliculaController {
@@ -12,15 +11,31 @@ public class PeliculaController {
     @Autowired
     private PeliculaService service;
 
-    @GetMapping("/greeting")
-    public Pelicula greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return service.nuevaPeli();
+    @GetMapping("/buscarId")
+    public Pelicula buscarId(@RequestParam(value = "id", defaultValue = "550") int id) {
+        Pelicula pelicula = service.buscarPeliculaById(id);
+        return pelicula;
     }
 
-    @GetMapping("/buscarId")
-    public Mono<Pelicula> buscarId(@RequestParam(value = "name", defaultValue = "World") String name) {
-        Mono<Pelicula> peliculaMono = service.buscarPeliculaById(2);
-        Pelicula p = peliculaMono.block();
-        return peliculaMono;
+    @GetMapping("/buscarNombre")
+    public Pelicula[] buscarNombre(@RequestParam(value = "name", defaultValue = "Godzilla") String name) {
+        Pelicula[] peliculas = service.buscarPeliculaByName(name);
+        return peliculas;
+    }
+
+    @GetMapping("/populares")
+    public Pelicula[] populares() {
+        Pelicula[] peliculas = service.peliculasPopulares();
+        return peliculas;
+    }
+    @GetMapping("/genero")
+    public Pelicula[] buscarGenero(@RequestParam(value = "genero", defaultValue = "comedy") String genero) {
+        Pelicula[] peliculas = service.peliculasPorGenero(genero);
+        return peliculas;
+    }
+    @GetMapping("/year")
+    public Pelicula[] populares(@RequestParam(value = "year", defaultValue = "2021") int year) {
+        Pelicula[] peliculas = service.peliculasByYear(year);
+        return peliculas;
     }
 }
