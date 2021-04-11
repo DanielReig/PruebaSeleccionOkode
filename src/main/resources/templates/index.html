@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #000000;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de selección Okode</h1>
+    <table>
+        <tr>
+            <th>Llamadas implementadas:</th>
+            <th>uri</th>
+            <th>Detalles</th>
+        </tr>
+        <tr>
+            <td>Busqueda por id: </td>
+            <td><a href="/buscarId?id=55">/buscarId?id=55</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Busqueda por nombre: </td>
+            <td><a href="/buscarNombre?name=Godzilla">/buscarNombre?name=Godzilla</a></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Peliculas más populares: </td>
+            <td><a href="/populares">/populares</a> </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Busqueda más populares por año:</td>
+            <td><a href="/year?year=2017">/year?year=2017</a> </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Busqueda más populares por Género:</td>
+            <td><a href="/genero?genero=comedy">/genero?genero=comedy</a></td>
+            <td>Géneros disponibles: music, thriller,drama,crime,tv movie, animation, western, comedy,
+                mystery, adventure, war, documentary, family, science fiction, action, horror, romance,fantasy, history</td>
+        </tr>
+
+    </table>
+
+    <h2>Test Cross Origin</h2>
+    <button onclick="testCrossOrigin()">Test</button>
+    <label>Si lanzamos peticiones desde http://localhost:9000 a la aplicación se permitira el acceso, el resto se rechazaran se puede ver el resultado en la consola</label>
+</body>
+<script>
+    function testCrossOrigin() {
+
+        $.ajax({
+            url: "http://localhost:8080/populares"
+        }).then(function(data, status, jqxhr) {
+            console.log(jqxhr);
+        });
+    }
+</script>
+</html>
